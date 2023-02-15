@@ -1,9 +1,12 @@
 #include <iostream>
 #include "SDL.h"
+#include <Ultralight/Ultralight.h>
 
-int main(int argc, char* argv[]) {
-	std::cout << "Hello, world!" << std::endl;
 
+using namespace ultralight;
+
+
+SDL_Window* SetupSDL() {
 	SDL_Window* window = nullptr;
 	SDL_Surface* screen = nullptr;
 
@@ -18,13 +21,34 @@ int main(int argc, char* argv[]) {
 			SDL_FillRect(screen, nullptr, SDL_MapRGB(screen->format, 0, 0, 0));
 			SDL_UpdateWindowSurface(window);
 
-			SDL_Event e;
-			bool quit = false;
-			while(quit == false) {
-				while(SDL_PollEvent(&e)) {
-					if(e.type == SDL_QUIT)
-						quit = true;
-				}
+			return window;
+		}
+	}
+
+	return nullptr;
+}
+
+
+void SetupUltralight() {
+	Config config;
+	config.resource_path = "./resources/";
+	config.use_gpu_renderer = false;
+	config.device_scale = 1.0;
+	Platform::instance().set_config(config);
+}
+
+
+int main(int argc, char* argv[]) {
+	SDL_Window* const window = SetupSDL();
+	if(window) {
+		SetupUltralight();
+
+		SDL_Event e;
+		bool quit = false;
+		while(quit == false) {
+			while(SDL_PollEvent(&e)) {
+				if(e.type == SDL_QUIT)
+					quit = true;
 			}
 		}
 	}

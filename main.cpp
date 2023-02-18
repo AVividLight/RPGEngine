@@ -1,9 +1,5 @@
 #include <iostream>
 #include "SDL.h"
-#include <Ultralight/Ultralight.h>
-
-
-using namespace ultralight;
 
 
 SDL_Window* SetupSDL() {
@@ -29,20 +25,9 @@ SDL_Window* SetupSDL() {
 }
 
 
-void SetupUltralight() {
-	Config config;
-	config.resource_path = "./resources/";
-	config.use_gpu_renderer = false;
-	config.device_scale = 1.0;
-	Platform::instance().set_config(config);
-}
-
-
 int main(int argc, char* argv[]) {
 	SDL_Window* const window = SetupSDL();
 	if(window) {
-		SetupUltralight();
-
 		SDL_Event e;
 		bool quit = false;
 		while(quit == false) {

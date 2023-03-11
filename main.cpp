@@ -14,7 +14,7 @@ SDL_Window* SetupSDL() {
 			std::cout << "Failed creating window!" << std::endl;
 		} else {
 			screen = SDL_GetWindowSurface(window);
-			SDL_FillRect(screen, nullptr, SDL_MapRGB(screen->format, 0, 0, 0));
+			SDL_FillRect(screen, nullptr, SDL_MapRGB(screen->format, 69, 69, 69));
 			SDL_UpdateWindowSurface(window);
 
 			return window;

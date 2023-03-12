@@ -15,6 +15,7 @@ FetchContent_Declare(external-SDL
 	OVERRIDE_FIND_PACKAGE
 )
 set(SDL_SHARED_ENABLED_BY_DEFAULT ON CACHE BOOL "" FORCE)
+set(SDL_STATIC_ENABLED_BY_DEFAULT OFF CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(external-SDL)
 find_package(external-SDL)
 

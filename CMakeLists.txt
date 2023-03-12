@@ -13,7 +13,8 @@ FetchContent_Declare(external-SDL
 	GIT_TAG			release-2.26.4
 	GIT_PROGRESS TRUE
 	OVERRIDE_FIND_PACKAGE
-	)
+)
+set(SDL_SHARED_ENABLED_BY_DEFAULT ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(external-SDL)
 find_package(external-SDL)
 
@@ -22,7 +23,7 @@ FetchContent_Declare(external-SDL_TTF
 	GIT_TAG			release-2.20.2
 	GIT_PROGRESS TRUE
 	OVERRIDE_FIND_PACKAGE
-	)
+)
 set(SDL2TTF_SAMPLES OFF CACHE BOOL "" FORCE) 
 set(SDL2TTF_INSTALL OFF CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(external-SDL_TTF)
@@ -33,7 +34,7 @@ FetchContent_Declare(external-SDL_Image
 	GIT_TAG			release-2.6.3
 	GIT_PROGRESS TRUE
 	OVERRIDE_FIND_PACKAGE
-	)
+)
 set(BUILD_STATIC_LIBS FALSE)
 set(SDL2IMAGE_SAMPLES OFF CACHE BOOL "" FORCE)
 set(SDL2IMAGE_INSTALL OFF CACHE BOOL "" FORCE) 
@@ -47,9 +48,9 @@ target_link_libraries(RPGEngine PRIVATE
 	SDL2::SDL2main
 	SDL2_ttf::SDL2_ttf
 	SDL2_image::SDL2_image
-	)
+)
 
 add_custom_command(TARGET RPGEngine POST_BUILD
 	COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_RUNTIME_DLLS:RPGEngine> $<TARGET_FILE_DIR:RPGEngine>
 	COMMAND_EXPAND_LISTS
-	)
+)

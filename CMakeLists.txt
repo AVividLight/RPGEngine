@@ -8,39 +8,55 @@ if(CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_CURRENT_BINARY_DIR)
 endif()
 
 include(FetchContent)
-FetchContent_Declare(external-SDL
-	GIT_REPOSITORY	https://github.com/libsdl-org/SDL.git
-	GIT_TAG			release-2.26.4
-	GIT_PROGRESS TRUE
-	OVERRIDE_FIND_PACKAGE
-)
-set(SDL_SHARED_ENABLED_BY_DEFAULT ON CACHE BOOL "" FORCE)
-set(SDL_STATIC_ENABLED_BY_DEFAULT OFF CACHE BOOL "" FORCE)
-FetchContent_MakeAvailable(external-SDL)
-find_package(external-SDL)
 
-FetchContent_Declare(external-SDL_TTF
-	GIT_REPOSITORY	https://github.com/libsdl-org/SDL_ttf.git
-	GIT_TAG			release-2.20.2
-	GIT_PROGRESS TRUE
-	OVERRIDE_FIND_PACKAGE
-)
-set(SDL2TTF_SAMPLES OFF CACHE BOOL "" FORCE) 
-set(SDL2TTF_INSTALL OFF CACHE BOOL "" FORCE)
-FetchContent_MakeAvailable(external-SDL_TTF)
-find_package(external-SDL_TTF)
+find_package(SDL2 QUIET)
+if(NOT ${SDL2_FOUND})
+	message(STATUS "SDL2 will be fetched.")
 
-FetchContent_Declare(external-SDL_Image
-	GIT_REPOSITORY	https://github.com/libsdl-org/SDL_image.git
-	GIT_TAG			release-2.6.3
-	GIT_PROGRESS TRUE
-	OVERRIDE_FIND_PACKAGE
-)
-set(BUILD_STATIC_LIBS FALSE)
-set(SDL2IMAGE_SAMPLES OFF CACHE BOOL "" FORCE)
-set(SDL2IMAGE_INSTALL OFF CACHE BOOL "" FORCE) 
-FetchContent_MakeAvailable(external-SDL_Image)
-find_package(external-SDL_Image)
+	FetchContent_Declare(external-SDL
+		GIT_REPOSITORY	https://github.com/libsdl-org/SDL.git
+		GIT_TAG			release-2.26.4
+		GIT_PROGRESS TRUE
+		OVERRIDE_FIND_PACKAGE
+	)
+	set(SDL_SHARED_ENABLED_BY_DEFAULT ON CACHE BOOL "" FORCE)
+	set(SDL_STATIC_ENABLED_BY_DEFAULT OFF CACHE BOOL "" FORCE)
+	FetchContent_MakeAvailable(external-SDL)
+	find_package(external-SDL)
+endif(NOT ${SDL2_FOUND})
+
+find_package(SDL2_ttf QUIET)
+if(NOT ${SDL2_ttf_FOUND})
+	message(STATUS "SDL2_TTF will be fetched.")
+
+	FetchContent_Declare(external-SDL_TTF
+		GIT_REPOSITORY	https://github.com/libsdl-org/SDL_ttf.git
+		GIT_TAG			release-2.20.2
+		GIT_PROGRESS TRUE
+		OVERRIDE_FIND_PACKAGE
+	)
+	set(SDL2TTF_SAMPLES OFF CACHE BOOL "" FORCE) 
+	set(SDL2TTF_INSTALL OFF CACHE BOOL "" FORCE)
+	FetchContent_MakeAvailable(external-SDL_TTF)
+	find_package(external-SDL_TTF)
+endif(NOT ${SDL2_ttf_FOUND})
+
+find_package(SDL2_image QUIET)
+if(NOT ${SDL2_image_FOUND})
+	message(STATUS "SDL2_Image will be fetched.")
+
+	FetchContent_Declare(external-SDL_Image
+		GIT_REPOSITORY	https://github.com/libsdl-org/SDL_image.git
+		GIT_TAG			release-2.6.3
+		GIT_PROGRESS TRUE
+		OVERRIDE_FIND_PACKAGE
+	)
+	set(BUILD_STATIC_LIBS FALSE)
+	set(SDL2IMAGE_SAMPLES OFF CACHE BOOL "" FORCE)
+	set(SDL2IMAGE_INSTALL OFF CACHE BOOL "" FORCE) 
+	FetchContent_MakeAvailable(external-SDL_Image)
+	find_package(external-SDL_Image)
+endif(NOT ${SDL2_image_FOUND})
 
 add_executable(RPGEngine main.cpp)
 

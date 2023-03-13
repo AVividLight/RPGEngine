@@ -4,7 +4,7 @@ project(RPGEngine CXX)
 set(CMAKE_CXX_STANDARD 17)
 
 if(CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_CURRENT_BINARY_DIR)
-	message(FATAL_ERROR "Create a build directory outside of the source tree and run \"cmake -S ${CMAKE_SOURCE_DIR} -B .\" from there.")
+	message(FATAL_ERROR "Create a build directory outside of the source tree and run `cmake -S ${CMAKE_SOURCE_DIR} -B .` from there.")
 endif()
 
 include(FetchContent)

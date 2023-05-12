@@ -26,7 +26,7 @@ SDL_Window* SetupSDL() {
 			SDL_SetRenderDrawColor(renderer, 69, 69, 69, 255);
 			SDL_RenderFillRect(renderer, NULL);
 			Font = FC_CreateFont();
-			FC_LoadFont(Font, renderer, "fonts/Kwizi.ttf", 20, FC_MakeColor(0,0,0,255), TTF_STYLE_NORMAL);
+			FC_LoadFont(Font, renderer, "Fonts/Chivo.ttf", 20, FC_MakeColor(0,0,0,255), TTF_STYLE_NORMAL);
 			FC_Draw(Font, renderer, 0, 0, "This is %s.\n It works.", "example text");
 			SDL_RenderPresent(renderer);
 

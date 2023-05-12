@@ -3,10 +3,12 @@
 #include <SDL_image.h>
 #include <SDL_ttf.h>
 #include <SDL_FontCache.h>
+#include <string>
 
 
 namespace {
 	FC_Font* Font = nullptr;
+	std::string Input;
 }
 
 
@@ -23,7 +25,7 @@ SDL_Window* SetupSDL() {
 			SDL_UpdateWindowSurface(window);
 
 			SDL_Renderer* const renderer = SDL_CreateRenderer(window, -1, 0);
-			SDL_SetRenderDrawColor(renderer, 69, 69, 69, 255);
+			SDL_SetRenderDrawColor(renderer, 138, 138, 138, 255);
 			SDL_RenderFillRect(renderer, NULL);
 			Font = FC_CreateFont();
 			FC_LoadFont(Font, renderer, "Fonts/Chivo.ttf", 20, FC_MakeColor(0,0,0,255), TTF_STYLE_NORMAL);
@@ -38,21 +40,40 @@ SDL_Window* SetupSDL() {
 }
 
 
+void Repaint(SDL_Window& window) {
+	SDL_Renderer* const renderer = SDL_GetRenderer(&window);
+	SDL_RenderFillRect(renderer, NULL);
+	FC_Draw(Font, renderer, 0, 0, Input.c_str());
+	SDL_RenderPresent(renderer);
+}
+
+
 int main(int argc, char* argv[]) {
 	SDL_Window* const window = SetupSDL();
 	if(window) {
+		SDL_StartTextInput();
 		SDL_Event e;
 		bool quit = false;
-		while(quit == false) {
+		do {
 			while(SDL_PollEvent(&e)) {
-				if(e.type == SDL_QUIT)
+				switch(e.type)
+				{
+				case SDL_QUIT:
 					quit = true;
+				break;
+
+				case SDL_TEXTINPUT:
+					Input += e.text.text;
+				break;
+				}
 			}
-		}
+			Repaint(*window);
+		} while(quit == false);
 		
 		SDL_DestroyWindow(window);
 	}
 
+	SDL_StopTextInput();
 	FC_FreeFont(Font);
 	SDL_Quit();
 	return 0;

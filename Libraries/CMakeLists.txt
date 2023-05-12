@@ -1,1 +1,3 @@
-add_subdirectory(SDL_FontCache)
+add_subdirectory(
+	SDL_FontCache
+)

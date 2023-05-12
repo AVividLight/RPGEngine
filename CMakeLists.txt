@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.24.0)
 project(RPGEngine CXX)
 
+set(CMAKE_BUILD_TYPE debug)
 set(CMAKE_CXX_STANDARD 17)
 
 if(CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_CURRENT_BINARY_DIR)
@@ -61,7 +62,8 @@ endif(NOT ${SDL2_ttf_FOUND})
 add_subdirectory(Libraries)
 
 add_executable(RPGEngine
-	${FontCache}
+	${SDL2_FontCache}
+	$<TARGET_OBJECTS:SDL2_FontCache>
 	main.cpp)
 
 target_link_libraries(RPGEngine PRIVATE
@@ -69,13 +71,24 @@ target_link_libraries(RPGEngine PRIVATE
 	SDL2::SDL2main
 	SDL2_image::SDL2_image
 	SDL2_ttf::SDL2_ttf
-	FontCache
+	SDL2_FontCache
 )
 
 target_include_directories(RPGEngine PRIVATE
 	Libraries/SDL_FontCache)
 
+
 add_custom_command(TARGET RPGEngine POST_BUILD
-	COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_RUNTIME_DLLS:RPGEngine> $<TARGET_FILE_DIR:RPGEngine>
+	COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_RUNTIME_DLLS:RPGEngine>
+	$<TARGET_FILE_DIR:RPGEngine>
 	COMMAND_EXPAND_LISTS
 )
+
+add_custom_target(build-time-make-directory ALL
+    COMMAND ${CMAKE_COMMAND} -E make_directory $<TARGET_FILE_DIR:RPGEngine>/Fonts
+	COMMAND_EXPAND_LISTS)
+
+add_custom_command(TARGET RPGEngine POST_BUILD
+	COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/Resources/Fonts/Chivo.ttf
+	$<TARGET_FILE_DIR:RPGEngine>/Fonts
+	COMMAND_EXPAND_LISTS)

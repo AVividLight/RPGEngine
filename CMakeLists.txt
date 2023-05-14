@@ -64,6 +64,7 @@ add_subdirectory(Libraries)
 add_executable(RPGEngine
 	${SDL2_FontCache}
 	$<TARGET_OBJECTS:SDL2_FontCache>
+	Source/RenderingEngine.cpp
 	main.cpp)
 
 target_link_libraries(RPGEngine PRIVATE
@@ -75,7 +76,8 @@ target_link_libraries(RPGEngine PRIVATE
 )
 
 target_include_directories(RPGEngine PRIVATE
-	Libraries/SDL_FontCache)
+	Libraries/SDL_FontCache
+	Source)
 
 
 add_custom_command(TARGET RPGEngine POST_BUILD

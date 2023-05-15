@@ -1,11 +1,14 @@
 #include "RenderingEngine.hpp"
+#include "KeyboardInput.hpp"
 #include <SDL.h>
 
 
 int main(int argc, char* argv[]) {
 	RenderingEngine renderer("RPGEngine");
+	KeyboardInput input;
 
-	SDL_StartTextInput();
+	input.ToggleKeyboardInput(true);
+
 	SDL_Event e;
 	bool quit = false;
 	do {
@@ -24,6 +27,7 @@ int main(int argc, char* argv[]) {
 		renderer.Repaint();
 	} while(quit == false);
 
-	SDL_StopTextInput();
+	input.ToggleKeyboardInput(false);
+
 	return 0;
 }

@@ -66,6 +66,8 @@ add_executable(RPGEngine
 	$<TARGET_OBJECTS:SDL2_FontCache>
 	main.cpp)
 
+add_subdirectory(Source)
+
 target_include_directories(RPGEngine PRIVATE
 	Libraries/SDL_FontCache)
 
@@ -75,8 +77,6 @@ target_link_libraries(RPGEngine PRIVATE
 	SDL2_image::SDL2_image
 	SDL2_ttf::SDL2_ttf
 	SDL2_FontCache)
-
-add_subdirectory(Source)
 
 add_custom_command(TARGET RPGEngine POST_BUILD
 	COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_RUNTIME_DLLS:RPGEngine>

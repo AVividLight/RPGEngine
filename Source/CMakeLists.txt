@@ -1,8 +1,6 @@
-add_subdirectory(
-	Rendering
-	Input)
+add_subdirectory(Rendering)
+add_subdirectory(Input)
 
-target_include_directories(RPGEngine PRIVATE
-	Rendering
-	Input
-)
+target_include_directories(RPGEngine
+	PRIVATE Rendering
+	PRIVATE Input)

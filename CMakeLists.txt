@@ -64,27 +64,24 @@ add_subdirectory(Libraries)
 add_executable(RPGEngine
 	${SDL2_FontCache}
 	$<TARGET_OBJECTS:SDL2_FontCache>
-	Source/RenderingEngine.cpp
 	main.cpp)
+
+target_include_directories(RPGEngine PRIVATE
+	Libraries/SDL_FontCache)
 
 target_link_libraries(RPGEngine PRIVATE
 	SDL2::SDL2
 	SDL2::SDL2main
 	SDL2_image::SDL2_image
 	SDL2_ttf::SDL2_ttf
-	SDL2_FontCache
-)
+	SDL2_FontCache)
 
-target_include_directories(RPGEngine PRIVATE
-	Libraries/SDL_FontCache
-	Source)
-
+add_subdirectory(Source)
 
 add_custom_command(TARGET RPGEngine POST_BUILD
 	COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_RUNTIME_DLLS:RPGEngine>
 	$<TARGET_FILE_DIR:RPGEngine>
-	COMMAND_EXPAND_LISTS
-)
+	COMMAND_EXPAND_LISTS)
 
 add_custom_target(build-time-make-directory ALL
     COMMAND ${CMAKE_COMMAND} -E make_directory $<TARGET_FILE_DIR:RPGEngine>/Fonts

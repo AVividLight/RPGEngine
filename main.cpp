@@ -20,7 +20,7 @@ int main(int argc, char* argv[]) {
 			break;
 
 			case SDL_TEXTINPUT:
-					renderer.UpdateMainText(e.text.text);
+				renderer.UpdateMainText(e.text.text);
 			break;
 			}
 		}

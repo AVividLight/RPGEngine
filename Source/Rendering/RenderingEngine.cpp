@@ -14,7 +14,7 @@ namespace {
 	
 	static constexpr const char* const MAIN_FONT_PATH = "Fonts/Chivo.ttf";
 	static constexpr unsigned char MAIN_FONT_SIZE = 32;
-	SDL_Color MAIN_FONT_COLOR = {0,0,0,255};
+	SDL_Color MAIN_FONT_COLOR = {255,255,255,255};
 }
 
 
@@ -55,6 +55,7 @@ void RenderingEngine::UpdateMainText(const char* const text) {
 
 
 void RenderingEngine::Repaint() {
+	SDL_RenderClear(MainRenderer);
 	SDL_RenderFillRect(MainRenderer, NULL);
 	FC_Draw(StandardFont, MainRenderer, 0, 0, MainText.c_str());
 	SDL_RenderPresent(MainRenderer);

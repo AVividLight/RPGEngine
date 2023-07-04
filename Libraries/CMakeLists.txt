@@ -1,3 +1,2 @@
-add_subdirectory(
-	SDL_FontCache
-)
+add_subdirectory(RapidJSON)
+add_subdirectory(SDL_FontCache)

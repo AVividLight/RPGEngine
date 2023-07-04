@@ -1,1 +1,0 @@
-include_directories(rapidjson-1.1.0/include/rapidjson)

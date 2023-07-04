@@ -69,7 +69,8 @@ add_executable(RPGEngine
 add_subdirectory(Source)
 
 target_include_directories(RPGEngine PRIVATE
-	Libraries/SDL_FontCache)
+	Libraries/SDL_FontCache
+	Libraries/rapidjson-1.1.0/include)
 
 target_link_libraries(RPGEngine PRIVATE
 	SDL2::SDL2

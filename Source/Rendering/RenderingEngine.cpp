@@ -27,12 +27,11 @@ RenderingEngine::RenderingEngine(const char* const title) : MainWindow{nullptr} 
 			std::cout << "Failed creating window!" << std::endl;
 		} else {
 			MainSurface = SDL_GetWindowSurface(MainWindow);
-			SDL_FillRect(MainSurface, nullptr, SDL_MapRGB(MainSurface->format, 69, 69, 69));
 			SDL_UpdateWindowSurface(MainWindow);
 
 			MainRenderer = SDL_CreateRenderer(MainWindow, -1, 0);
 			SDL_SetRenderDrawColor(MainRenderer, BACKGROUND_COLOR.r, BACKGROUND_COLOR.g, BACKGROUND_COLOR.b, BACKGROUND_COLOR.a);
-			SDL_RenderFillRect(MainRenderer, NULL);
+			SDL_RenderClear(MainRenderer);
 
 			StandardFont = FC_CreateFont();
 			FC_LoadFont(StandardFont, MainRenderer, MAIN_FONT_PATH, MAIN_FONT_SIZE, MAIN_FONT_COLOR, TTF_STYLE_NORMAL);
@@ -56,7 +55,6 @@ void RenderingEngine::UpdateMainText(const char* const text) {
 
 void RenderingEngine::Repaint() {
 	SDL_RenderClear(MainRenderer);
-	SDL_RenderFillRect(MainRenderer, NULL);
 	FC_Draw(StandardFont, MainRenderer, 0, 0, MainText.c_str());
 	SDL_RenderPresent(MainRenderer);
 }

@@ -66,7 +66,7 @@ add_executable(RPGEngine
 	$<TARGET_OBJECTS:SDL2_FontCache>
 	main.cpp)
 
-#add_subdirectory(Source)
+add_subdirectory(Source)
 
 target_include_directories(RPGEngine PRIVATE
 	Libraries/SDL_FontCache

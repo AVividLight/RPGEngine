@@ -2,19 +2,22 @@
 #include <SDL.h>
 #include <SDL_image.h>
 #include <SDL_ttf.h>
-#include <SDL_FontCache.h>
+//#include <SDL_FontCache.h>
 
 #include <iostream>
 
 
 namespace {
-	static constexpr unsigned short WINDOW_WIDTH = 1600;
-	static constexpr unsigned short WINDOW_HEIGHT = 900;
+	constexpr unsigned short WINDOW_WIDTH = 1600;
+	constexpr unsigned short WINDOW_HEIGHT = 900;
 	SDL_Color BACKGROUND_COLOR = {138, 138, 138, 255};
 	
-	static constexpr const char* const MAIN_FONT_PATH = "Fonts/Chivo.ttf";
-	static constexpr unsigned char MAIN_FONT_SIZE = 32;
+	//constexpr const char* const MAIN_FONT_PATH = "Fonts/Chivo.ttf";
+	constexpr unsigned char MAIN_FONT_SIZE = 32;
 	SDL_Color MAIN_FONT_COLOR = {255,255,255,255};
+
+	constexpr unsigned char SPRITE_SIZE = 32;
+	constexpr unsigned char CHARACTER_MARGIN = 4;
 }
 
 
@@ -33,8 +36,23 @@ RenderingEngine::RenderingEngine(const char* const title) : MainWindow{nullptr} 
 			SDL_SetRenderDrawColor(MainRenderer, BACKGROUND_COLOR.r, BACKGROUND_COLOR.g, BACKGROUND_COLOR.b, BACKGROUND_COLOR.a);
 			SDL_RenderClear(MainRenderer);
 
-			StandardFont = FC_CreateFont();
-			FC_LoadFont(StandardFont, MainRenderer, MAIN_FONT_PATH, MAIN_FONT_SIZE, MAIN_FONT_COLOR, TTF_STYLE_NORMAL);
+			//StandardFont = FC_CreateFont();
+			//FC_LoadFont(StandardFont, MainRenderer, MAIN_FONT_PATH, MAIN_FONT_SIZE, MAIN_FONT_COLOR, TTF_STYLE_NORMAL);
+
+			SDL_Surface* const rawSheet = IMG_Load("Resources/Font.png");
+			SpriteSheet = SDL_CreateTextureFromSurface(MainRenderer, rawSheet);
+			SDL_FreeSurface(rawSheet);
+
+			constexpr const char string[4] = "GIB";
+			for(unsigned char i = 0; i < 4; i += 1) {
+				SDL_Rect source {((string[i] - 'A') * SPRITE_SIZE), 0, SPRITE_SIZE, SPRITE_SIZE};
+				SDL_Rect destination {10 + (i * SPRITE_SIZE) + (i * CHARACTER_MARGIN), 10, SPRITE_SIZE, SPRITE_SIZE};
+
+				if(SDL_RenderCopy(MainRenderer, SpriteSheet, &source, &destination) != 0)
+				{
+					std::cout << "Render Copy Failed!" << std::endl;
+				}
+			}
 
 			SDL_RenderPresent(MainRenderer);
 		}
@@ -43,7 +61,7 @@ RenderingEngine::RenderingEngine(const char* const title) : MainWindow{nullptr} 
 
 
 RenderingEngine::~RenderingEngine() {
-	FC_FreeFont(StandardFont);
+	//FC_FreeFont(StandardFont);
 	SDL_Quit();
 }
 
@@ -55,6 +73,6 @@ void RenderingEngine::UpdateMainText(const char* const text) {
 
 void RenderingEngine::Repaint() {
 	SDL_RenderClear(MainRenderer);
-	FC_Draw(StandardFont, MainRenderer, 0, 0, MainText.c_str());
+	//FC_Draw(StandardFont, MainRenderer, 0, 0, MainText.c_str());
 	SDL_RenderPresent(MainRenderer);
 }

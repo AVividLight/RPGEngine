@@ -5,6 +5,7 @@
 
 struct SDL_Window;
 struct SDL_Surface;
+struct SDL_Texture;
 struct SDL_Renderer;
 struct FC_Font;
 
@@ -25,8 +26,9 @@ private:
 	SDL_Surface* MainSurface;
 	SDL_Renderer* MainRenderer;
 	FC_Font* StandardFont;
-
 	std::string MainText;
+
+	SDL_Texture* SpriteSheet;
 };
 
 #endif

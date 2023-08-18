@@ -66,7 +66,7 @@ add_executable(RPGEngine
 	$<TARGET_OBJECTS:SDL2_FontCache>
 	main.cpp)
 
-add_subdirectory(Source)
+#add_subdirectory(Source)
 
 target_include_directories(RPGEngine PRIVATE
 	Libraries/SDL_FontCache
@@ -84,11 +84,7 @@ add_custom_command(TARGET RPGEngine POST_BUILD
 	$<TARGET_FILE_DIR:RPGEngine>
 	COMMAND_EXPAND_LISTS)
 
-add_custom_target(build-time-make-directory ALL
-    COMMAND ${CMAKE_COMMAND} -E make_directory $<TARGET_FILE_DIR:RPGEngine>/Fonts
-	COMMAND_EXPAND_LISTS)
-
 add_custom_command(TARGET RPGEngine POST_BUILD
-	COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/Resources/Fonts/Chivo.ttf
-	$<TARGET_FILE_DIR:RPGEngine>/Fonts
+	COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/Resources
+	$<TARGET_FILE_DIR:RPGEngine>/Resources
 	COMMAND_EXPAND_LISTS)

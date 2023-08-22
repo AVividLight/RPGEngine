@@ -81,5 +81,5 @@ void RenderingEngine::Repaint() {
 
 constexpr SDL_Rect RenderingEngine::CharacterToSpriteIndex(const unsigned char c, const unsigned char spriteSheetSize) {
 	const unsigned short oneDimensionalPosition = (c - 'A');
-	return SDL_Rect{(oneDimensionalPosition * SPRITE_SIZE), (oneDimensionalPosition % spriteSheetSize), SPRITE_SIZE, SPRITE_SIZE};
+	return SDL_Rect{(oneDimensionalPosition % spriteSheetSize) * SPRITE_SIZE, (oneDimensionalPosition / spriteSheetSize) * SPRITE_SIZE, SPRITE_SIZE, SPRITE_SIZE};
 }

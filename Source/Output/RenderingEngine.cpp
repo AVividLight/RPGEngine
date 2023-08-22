@@ -43,7 +43,7 @@ RenderingEngine::RenderingEngine(const char* const title) : MainWindow{nullptr} 
 			SpriteSheet = SDL_CreateTextureFromSurface(MainRenderer, rawSheet);
 			SDL_FreeSurface(rawSheet);
 
-			constexpr const char string[] = "HELLO WORLD!";
+			constexpr const char string[] = "THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG";
 			for(unsigned char i = 0; i < sizeof(string) - 1; i += 1) {
 				const SDL_Rect source = RenderingEngine::CharacterToSpriteIndex(string[i], 10);
 				//std::cout << string[i] << " (" << (int)i << ") at {" << source.x << ", " << source.y << ']' << std::endl;

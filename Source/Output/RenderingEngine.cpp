@@ -46,7 +46,7 @@ RenderingEngine::RenderingEngine(const char* const title) : MainWindow{nullptr} 
 			constexpr const char string[] = "HELLO WORLD!";
 			for(unsigned char i = 0; i < sizeof(string) - 1; i += 1) {
 				const SDL_Rect source = RenderingEngine::CharacterToSpriteIndex(string[i], 10);
-				std::cout << string[i] << " (" << (int)i << ") at {" << source.x << ", " << source.y << ']' << std::endl;
+				//std::cout << string[i] << " (" << (int)i << ") at {" << source.x << ", " << source.y << ']' << std::endl;
 				SDL_Rect destination {10 + (i * SPRITE_SIZE) + (i * CHARACTER_MARGIN), 10, SPRITE_SIZE, SPRITE_SIZE};
 
 				if(SDL_RenderCopy(MainRenderer, SpriteSheet, &source, &destination) != 0)

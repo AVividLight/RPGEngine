@@ -1,6 +1,7 @@
 #ifndef RENDERINGENGINE_HPP
 #define RENDERINGENGINE_HPP
 
+#include <SDL_rect.h>
 #include <string>
 
 struct SDL_Window;
@@ -22,6 +23,8 @@ public:
 	void Repaint();
 
 private:
+	static constexpr SDL_Rect CharacterToSpriteIndex(const unsigned char c, const unsigned char spriteSheetSize);
+
 	SDL_Window* MainWindow;
 	SDL_Surface* MainSurface;
 	SDL_Renderer* MainRenderer;

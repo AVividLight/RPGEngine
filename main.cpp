@@ -2,6 +2,7 @@
 #include "KeyboardInput.hpp"
 #include <SDL.h>
 //#include <chrono>
+#include <rapidjson/document.h>
 
 
 //using TARGET_FRAME_RATE = std::ratio<1, 30>;

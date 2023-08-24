@@ -70,7 +70,7 @@ target_link_libraries(RPGEngine PRIVATE
 	SDL2::SDL2main
 	SDL2_image::SDL2_image
 	SDL2_ttf::SDL2_ttf
-	RapidJSON
+	RapidJSON::RapidJSON
 	SDL2_FontCache)
 
 add_custom_command(TARGET RPGEngine POST_BUILD

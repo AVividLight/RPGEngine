@@ -59,6 +59,30 @@ if(NOT ${SDL2_ttf_FOUND})
 	find_package(external-SDL_TTF)
 endif(NOT ${SDL2_ttf_FOUND})
 
+find_package(RapidJSON QUIET)
+if(NOT ${RapidJSON_FOUND})
+	message(STATUS "RapidJSON will be fetched.")
+
+	FetchContent_Declare(external-RapidJSON
+		GIT_REPOSITORY	https://github.com/Tencent/rapidjson.git
+		GIT_TAG			476ffa2fd272243275a74c36952f210267dc3088 #Latest commit as of 8/23/2023
+		GIT_PROGRESS	TRUE
+		OVERRIDE_FIND_PACKAGE
+	)
+	set(RAPIDJSON_BUILD_DOC OFF CACHE BOOL "" FORCE)
+	set(RAPIDJSON_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
+	set(RAPIDJSON_BUILD_TESTS OFF CACHE BOOL "" FORCE)
+	set(RAPIDJSON_BUILD_THIRDPARTY_GTEST OFF CACHE BOOL "" FORCE)
+	set(RAPIDJSON_BUILD_CXX17 ON CACHE BOOL "" FORCE)
+	set(RAPIDJSON_BUILD_ASAN OFF CACHE BOOL "" FORCE)
+	set(RAPIDJSON_BUILD_UBSAN OFF CACHE BOOL "" FORCE)
+	set(RAPIDJSON_ENABLE_INSTRUMENTATION_OPT ON CACHE BOOL "" FORCE)
+	set(RAPIDJSON_HAS_STDSTRING ON CACHE BOOL "" FORCE)
+	set(RAPIDJSON_USE_MEMBERSMAP OFF CACHE BOOL "" FORCE)
+	FetchContent_MakeAvailable(external-RapidJSON)
+	find_package(external-RapidJSON)
+endif(NOT ${RapidJSON_FOUND})
+
 add_subdirectory(Libraries)
 
 add_executable(RPGEngine
@@ -70,13 +94,14 @@ add_subdirectory(Source)
 
 target_include_directories(RPGEngine PRIVATE
 	Libraries/SDL_FontCache
-	Libraries/rapidjson-1.1.0/include)
+	)
 
 target_link_libraries(RPGEngine PRIVATE
 	SDL2::SDL2
 	SDL2::SDL2main
 	SDL2_image::SDL2_image
 	SDL2_ttf::SDL2_ttf
+	RapidJSON
 	SDL2_FontCache)
 
 add_custom_command(TARGET RPGEngine POST_BUILD

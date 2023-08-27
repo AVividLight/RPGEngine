@@ -35,23 +35,14 @@ FetchContent_Declare(SDL_TTF
 set(SDL2TTF_SAMPLES OFF CACHE BOOL "" FORCE) 
 set(SDL2TTF_INSTALL OFF CACHE BOOL "" FORCE)
 
-FetchContent_Declare(RapidJSON
-		GIT_REPOSITORY	https://github.com/Tencent/rapidjson.git
-		GIT_TAG			476ffa2fd272243275a74c36952f210267dc3088 #Latest commit as of 8/23/2023
+FetchContent_Declare(nlohmann_json
+		GIT_REPOSITORY	https://github.com/nlohmann/json.git
+		GIT_TAG			v3.11.2
 		GIT_PROGRESS	TRUE
 		OVERRIDE_FIND_PACKAGE)
-set(RAPIDJSON_BUILD_DOC OFF CACHE BOOL "" FORCE)
-set(RAPIDJSON_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
-set(RAPIDJSON_BUILD_TESTS OFF CACHE BOOL "" FORCE)
-set(RAPIDJSON_BUILD_THIRDPARTY_GTEST OFF CACHE BOOL "" FORCE)
-set(RAPIDJSON_BUILD_CXX17 ON CACHE BOOL "" FORCE)
-set(RAPIDJSON_BUILD_ASAN OFF CACHE BOOL "" FORCE)
-set(RAPIDJSON_BUILD_UBSAN OFF CACHE BOOL "" FORCE)
-set(RAPIDJSON_ENABLE_INSTRUMENTATION_OPT ON CACHE BOOL "" FORCE)
-set(RAPIDJSON_HAS_STDSTRING ON CACHE BOOL "" FORCE)
-set(RAPIDJSON_USE_MEMBERSMAP OFF CACHE BOOL "" FORCE)
+set(JSON_BuildTests OFF CACHE BOOL "" FORCE)
 
-FetchContent_MakeAvailable(SDL2 SDL_Image SDL_TTF RapidJSON)
+FetchContent_MakeAvailable(SDL2 SDL_Image SDL_TTF nlohmann_json)
 
 add_subdirectory(Libraries)
 
@@ -70,7 +61,7 @@ target_link_libraries(RPGEngine PRIVATE
 	SDL2::SDL2main
 	SDL2_image::SDL2_image
 	SDL2_ttf::SDL2_ttf
-	RapidJSON::RapidJSON
+	nlohmann_json::nlohmann_json
 	SDL2_FontCache)
 
 add_custom_command(TARGET RPGEngine POST_BUILD
